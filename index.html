@@ -17,20 +17,23 @@ body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--bg);colo
 .brand{line-height:1.05;font-weight:800;font-size:1.1rem;color:var(--verde)} .brand span{display:block;color:var(--naranja)}
 .logo{margin-left:auto;display:flex;align-items:center;gap:6px;font-weight:800;color:var(--verde);font-size:1.4rem;letter-spacing:.02em}
 .logo svg{width:38px;height:auto}
-.banner{background:linear-gradient(135deg,#0a7a35,#06501f);padding:26px 20px 70px;color:#fff}
+.banner{background:linear-gradient(135deg,#0a7a35,#06501f);padding:22px 20px 22px;color:#fff}
 .banner div{max-width:820px;margin:0 auto}
 .banner h1{margin:0;font-size:1.6rem;font-weight:800} .banner p{margin:4px 0 0;opacity:.85;font-size:.9rem}
-main{max-width:820px;margin:-48px auto 40px;padding:0 16px}
+main{max-width:820px;margin:0 auto 40px;padding:0 16px}
+.fijo{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0 8px}
 .sec{display:flex;align-items:center;gap:10px;font-size:.68rem;font-weight:700;letter-spacing:.14em;color:var(--mut);margin:22px 0 10px;text-transform:uppercase}
 .sec:before{content:"";width:3px;height:14px;background:var(--naranja)}
 .sec:after{content:"";flex:1;height:1px;background:#0002}
 .card{background:var(--card);border-radius:20px;box-shadow:var(--sombra);padding:16px}
 /* Escena */
-.escena{border-radius:22px;padding:26px 20px;text-align:center;color:#fff;transition:background .25s;min-height:200px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--sombra)}
+.escena{border-radius:22px;padding:26px 20px;text-align:center;color:#fff;transition:background .25s;min-height:140px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--sombra)}
 .escena.asesor{background:var(--naranja)} .escena.todos{background:linear-gradient(135deg,#0a7a35,#06501f)} .escena.idle{background:#5b6b63}
 .pill{align-self:center;background:#fff;color:var(--naranja);font-size:.65rem;font-weight:800;letter-spacing:.1em;padding:4px 12px;border-radius:999px}
 .escena.todos .pill{color:var(--verde)} .escena.idle .pill{color:#5b6b63}
-.frase{font-size:clamp(1.6rem,6vw,2.6rem);font-weight:800;margin:14px 0 8px;line-height:1.15}
+.frase{font-size:clamp(1.3rem,5vw,2rem);font-weight:600;margin:10px 0 4px;line-height:1.15}
+.escena.asesor .frase{font-size:clamp(1.9rem,7.5vw,3.2rem);font-weight:800}
+.escena.asesor{padding:22px 20px}
 .sig{font-size:.85rem;opacity:.85}
 audio{width:100%}
 .bar{height:8px;background:#0002;border-radius:9px;overflow:hidden;margin:12px 0}
@@ -42,9 +45,13 @@ button.s{background:#0000000d;color:var(--txt)} button.on{background:var(--naran
 /* Letra */
 .l{display:flex;gap:10px;align-items:center;padding:11px 14px;border-radius:14px;cursor:pointer;border-left:5px solid transparent;margin-bottom:6px;opacity:.6;transition:.2s}
 .l small{font-weight:700;font-size:.65rem;letter-spacing:.08em;min-width:60px;color:var(--mut)}
-.l.a{border-color:var(--naranja)} .l.t{border-color:var(--verde)}
+.l.a{border-color:var(--naranja);background:#f07d0018;font-size:1.15rem;font-weight:800;opacity:.9;padding:13px 14px}
+.l.t{border-color:var(--verde);font-size:.88rem;font-weight:500;margin-left:26px}
+.l.a small{color:var(--naranja)}
+.l.a.act{background:var(--naranja);color:#fff;opacity:1;box-shadow:var(--sombra)} .l.a.act small{color:#fff}
+.l.t.act{background:var(--card);outline:2px solid var(--verde)}
 .l.act{opacity:1;background:var(--card);box-shadow:var(--sombra);font-weight:700}
-.l.pasada{opacity:.35}
+.l.pasada{opacity:.4}
 /* Calibración */
 .gate{display:none;margin-top:14px;border:2px dashed var(--naranja)} .gate.show{display:block}
 .modal{display:none;position:fixed;inset:0;background:#000a;z-index:50;align-items:center;justify-content:center;padding:16px}
@@ -70,13 +77,13 @@ textarea{width:100%;height:90px;border-radius:10px;border:1px solid #0003;paddin
 <div class="banner"><div><h1>🎵 Himno Martín</h1><p>El asesor da la voz y todos repiten. ¡Aprende el himno paso a paso!</p></div></div>
 
 <main>
+  <div class="fijo">
   <div id="escena" class="escena idle">
     <span class="pill" id="rol">PRESIONA ▶ PARA EMPEZAR</span>
     <div class="frase" id="frase">MARTIN, buenos días</div>
-    <div class="sig" id="sig"></div>
   </div>
 
-  <div class="card" style="margin-top:14px">
+  <div class="card" style="margin-top:8px;padding:10px 14px">
     <audio id="audio" controls preload="auto" src="himno-martin.mp3.mp3"></audio>
     <div class="bar"><i id="prog"></i></div>
     <div class="fila">
@@ -85,6 +92,8 @@ textarea{width:100%;height:90px;border-radius:10px;border:1px solid #0003;paddin
       <button class="s vel on" data-v="1">Normal</button>
       <button class="s" id="btnCal" style="margin-left:auto">⚙ Calibrar tiempos</button>
     </div>
+  </div>
+
   </div>
 
   <div class="card gate" id="gate">
@@ -121,7 +130,7 @@ textarea{width:100%;height:90px;border-radius:10px;border:1px solid #0003;paddin
 
 <script>
 const L=[
-["a","MARTIN, buenos días"],["t","Buenos días"],["a","Buenos días"],["t","Buenos días"],
+["a","MARTIN, buenos días"],["t","Buenos días"],["a","Buenos días"],["t","Buenos días"],["a","Buenos días"],["t","Buenos días"],
 ["a","¡Oh, qué feliz!"],["t","¡Oh, qué feliz!"],["a","Hoy me siento yo"],["t","Hoy me siento yo"],
 ["a","Después de hacer"],["t","Después de hacer"],["a","Una buena acción"],["t","Una buena acción"],
 ["a","La empresa es..."],["t","La empresa es..."],["a","Mi segundo hogar"],["t","Mi segundo hogar"],
@@ -130,7 +139,7 @@ const L=[
 ["a","¿Y mañana?"],["t","Mucho mejor."],["a","¡MARTIN!"],["t","¡RA!"],
 ["a","¡MARTIN!"],["t","¡RA, RA!"],["a","¡MARTIN!"],["t","¡RA, RA, RA!"]
 ];
-// Pega aquí el resultado del modo calibración (32 números)
+// Pega aquí el resultado del modo calibración (34 números)
 const TIEMPOS = [];
 const CLAVE="martin123";
 
@@ -151,13 +160,12 @@ function pinta(i){
   if(i===cur)return; cur=i;
   document.querySelectorAll(".l").forEach((e,k)=>{e.classList.toggle("act",k===i);e.classList.toggle("pasada",k<i)});
   const e=$("escena");
-  if(i<0){e.className="escena idle";$("rol").textContent="PRESIONA ▶ PARA EMPEZAR";$("frase").textContent="MARTIN, buenos días";$("sig").textContent="";return;}
+  if(i<0){e.className="escena idle";$("rol").textContent="PRESIONA ▶ PARA EMPEZAR";$("frase").textContent="MARTIN, buenos días";return;}
   const a=L[i][0]=="a";
   e.className="escena "+(a?"asesor":"todos");
   $("rol").textContent=a?"🎤 EL ASESOR DA LA VOZ":"👥 TODOS REPITEN";
   $("frase").textContent=L[i][1];
-  $("sig").textContent=L[i+1]?"Sigue: "+L[i+1][1]:"¡Fin del himno! 👏";
-  const el=$("l"+i); if(el)el.scrollIntoView({block:"nearest",behavior:"smooth"});
+  const el=$("l"+i); if(el)el.scrollIntoView({block:"center",behavior:"smooth"});
 }
 function indice(t){let r=-1;for(let i=0;i<T.length;i++){if(T[i]<=t)r=i;else break;}return r;}
 function tick(){
