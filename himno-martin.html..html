@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Himno Martín | Campus Capacitación</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#0a7a35;--verde2:#06501f;--naranja:#f07d00;--bg:#f0f3f1;--card:#fff;--txt:#1b2b22;--mut:#6b7a72;--sombra:0 6px 18px #0a2a1a22}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1b15;--card:#172a21;--txt:#eef4f0;--mut:#9db0a5;--sombra:0 6px 18px #0006}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+/* Cabecera estilo campus */
+.top{background:#fff;border-bottom:3px solid var(--naranja);display:flex;align-items:center;gap:14px;padding:10px 20px;flex-wrap:wrap}
+.volver{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:.85rem;color:var(--naranja);border:2px solid var(--naranja);border-radius:999px;padding:7px 14px;transition:.2s}
+.volver:hover{background:var(--naranja);color:#fff}
+.brand{line-height:1.05;font-weight:800;font-size:1.1rem;color:var(--verde)} .brand span{display:block;color:var(--naranja)}
+.logo{margin-left:auto;display:flex;align-items:center;gap:6px;font-weight:800;color:var(--verde);font-size:1.4rem;letter-spacing:.02em}
+.logo svg{width:38px;height:auto}
+.banner{background:linear-gradient(135deg,#0a7a35,#06501f);padding:26px 20px 70px;color:#fff}
+.banner div{max-width:820px;margin:0 auto}
+.banner h1{margin:0;font-size:1.6rem;font-weight:800} .banner p{margin:4px 0 0;opacity:.85;font-size:.9rem}
+main{max-width:820px;margin:-48px auto 40px;padding:0 16px}
+.sec{display:flex;align-items:center;gap:10px;font-size:.68rem;font-weight:700;letter-spacing:.14em;color:var(--mut);margin:22px 0 10px;text-transform:uppercase}
+.sec:before{content:"";width:3px;height:14px;background:var(--naranja)}
+.sec:after{content:"";flex:1;height:1px;background:#0002}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--sombra);padding:16px}
+/* Escena */
+.escena{border-radius:22px;padding:26px 20px;text-align:center;color:#fff;transition:background .25s;min-height:200px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--sombra)}
+.escena.asesor{background:var(--naranja)} .escena.todos{background:linear-gradient(135deg,#0a7a35,#06501f)} .escena.idle{background:#5b6b63}
+.pill{align-self:center;background:#fff;color:var(--naranja);font-size:.65rem;font-weight:800;letter-spacing:.1em;padding:4px 12px;border-radius:999px}
+.escena.todos .pill{color:var(--verde)} .escena.idle .pill{color:#5b6b63}
+.frase{font-size:clamp(1.6rem,6vw,2.6rem);font-weight:800;margin:14px 0 8px;line-height:1.15}
+.sig{font-size:.85rem;opacity:.85}
+audio{width:100%}
+.bar{height:8px;background:#0002;border-radius:9px;overflow:hidden;margin:12px 0}
+.bar i{display:block;height:100%;width:0;background:var(--naranja)}
+.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:600;font-size:.85rem;border:0;border-radius:12px;padding:9px 14px;cursor:pointer;background:var(--verde);color:#fff}
+button.s{background:#0000000d;color:var(--txt)} button.on{background:var(--naranja);color:#fff}
+.mut{color:var(--mut);font-size:.85rem}
+/* Letra */
+.l{display:flex;gap:10px;align-items:center;padding:11px 14px;border-radius:14px;cursor:pointer;border-left:5px solid transparent;margin-bottom:6px;opacity:.6;transition:.2s}
+.l small{font-weight:700;font-size:.65rem;letter-spacing:.08em;min-width:60px;color:var(--mut)}
+.l.a{border-color:var(--naranja)} .l.t{border-color:var(--verde)}
+.l.act{opacity:1;background:var(--card);box-shadow:var(--sombra);font-weight:700}
+.l.pasada{opacity:.35}
+/* Calibración */
+.gate{display:none;margin-top:14px;border:2px dashed var(--naranja)} .gate.show{display:block}
+.modal{display:none;position:fixed;inset:0;background:#000a;z-index:50;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.ventana{position:relative;background:var(--card);border-radius:20px;box-shadow:0 10px 40px #0008;padding:20px;width:100%;max-width:520px;max-height:90vh;overflow:auto;border-top:5px solid var(--naranja)}
+.x{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;padding:0;font-size:1.1rem;background:#0000001a;color:var(--txt)}
+.ok{color:var(--verde);font-weight:600;font-size:.85rem;min-height:1.2em;margin-top:8px}
+.pw{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pw .campo{position:relative;flex:1;min-width:180px}
+.pw input{width:100%;padding:10px 40px 10px 12px;border-radius:12px;border:1px solid #0003;font:inherit;background:var(--bg);color:var(--txt)}
+.ojo{position:absolute;right:4px;top:3px;background:none;color:var(--txt);padding:6px 8px;font-size:1rem}
+.err{color:#d32f2f;font-size:.8rem;margin-top:6px;min-height:1em}
+textarea{width:100%;height:90px;border-radius:10px;border:1px solid #0003;padding:8px;font-family:monospace;background:var(--bg);color:var(--txt)}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="volver" href="https://capacitacion3vesmartin-ves.github.io/campuscapacitacion/">← Volver al campus</a>
+  <div class="logo">
+    <svg viewBox="200 300 680 480" xmlns="http://www.w3.org/2000/svg"><path fill="#f07d00" d="M288 334h121l97 216v200H217zM794 334H673l-95 216v200h289z"/><path fill="#009640" d="M433 334h217l-96 216h-24z"/></svg>MARTIN
+  </div>
+</header>
+<div class="banner"><div><h1>🎵 Himno Martín</h1><p>El asesor da la voz y todos repiten. ¡Aprende el himno paso a paso!</p></div></div>
+
+<main>
+  <div id="escena" class="escena idle">
+    <span class="pill" id="rol">PRESIONA ▶ PARA EMPEZAR</span>
+    <div class="frase" id="frase">MARTIN, buenos días</div>
+    <div class="sig" id="sig"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <audio id="audio" controls preload="auto" src="himno-martin.mp3"></audio>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="fila">
+      <span class="mut">Velocidad:</span>
+      <button class="s vel" data-v="0.6">Lenta</button>
+      <button class="s vel on" data-v="1">Normal</button>
+      <button class="s" id="btnCal" style="margin-left:auto">⚙ Calibrar tiempos</button>
+    </div>
+  </div>
+
+  <div class="card gate" id="gate">
+    <b>🔒 Zona del administrador</b>
+    <div class="pw">
+      <div class="campo"><input id="clave" type="password" placeholder="Clave" autocomplete="off"><button class="ojo" id="ojo" type="button" aria-label="Mostrar clave">👁</button></div>
+      <button id="entrar">Entrar</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="modal" id="calib">
+    <div class="ventana">
+      <button class="x" id="cX" aria-label="Cerrar sin guardar" title="Cerrar sin guardar">✕</button>
+      <b>⚙ Calibrar tiempos</b>
+      <p class="mut">1) Pulsa "Iniciar". 2) Cada vez que empiece una línea, pulsa el botón naranja o la barra espaciadora. 3) Al terminar pulsa "Guardar". Si no quieres guardar, cierra con la ✕.</p>
+      <div class="fila">
+        <button id="cIni">▶ Iniciar</button>
+        <button id="cMarca" class="on">📍 Marcar (Espacio)</button>
+        <button id="cUndo" class="s">↩ Deshacer</button>
+      </div>
+      <p class="mut" id="cEstado"></p>
+      <textarea id="cOut" readonly placeholder="Aquí aparecerán los tiempos..."></textarea>
+      <div class="fila" style="margin-top:12px;justify-content:flex-end">
+        <button id="cGuardar">💾 Guardar</button>
+      </div>
+      <div class="ok" id="cOk"></div>
+    </div>
+  </div>
+
+  <div class="sec">Letra del himno</div>
+  <div id="lista"></div>
+</main>
+
+<script>
+const L=[
+["a","MARTIN, buenos días"],["t","Buenos días"],["a","Buenos días"],["t","Buenos días"],
+["a","¡Oh, qué feliz!"],["t","¡Oh, qué feliz!"],["a","Hoy me siento yo"],["t","Hoy me siento yo"],
+["a","Después de hacer"],["t","Después de hacer"],["a","Una buena acción"],["t","Una buena acción"],
+["a","La empresa es..."],["t","La empresa es..."],["a","Mi segundo hogar"],["t","Mi segundo hogar"],
+["a","En la que estoy"],["t","En la que estoy"],["a","Trabajando hoy"],["t","Trabajando hoy"],
+["a","MARTIN, buenos días"],["t","Buenos días"],["a","¿Cómo están?"],["t","Bien, bien, bien, muy bien, muy bien, muy bien, requetebién, requetebién, súper, súper bien."],
+["a","¿Y mañana?"],["t","Mucho mejor."],["a","¡MARTIN!"],["t","¡RA!"],
+["a","¡MARTIN!"],["t","¡RA, RA!"],["a","¡MARTIN!"],["t","¡RA, RA, RA!"]
+];
+// Pega aquí el resultado del modo calibración (32 números)
+const TIEMPOS = [];
+const CLAVE="martin123";
+
+const $=id=>document.getElementById(id), au=$("audio");
+let T=TIEMPOS.slice();
+try{ if(T.length!==L.length){const s=JSON.parse(localStorage.getItem("martin_t")||"[]"); if(s.length===L.length)T=s;} }catch(e){}
+let cur=-1, cal=false, marks=[];
+
+L.forEach((x,i)=>{
+  const d=document.createElement("div");
+  d.className="l "+x[0]; d.id="l"+i;
+  d.innerHTML=`<small>${x[0]=="a"?"ASESOR":"TODOS"}</small><span>${x[1]}</span>`;
+  d.onclick=()=>{ if(T[i]!=null){au.currentTime=T[i];au.play();} };
+  $("lista").appendChild(d);
+});
+
+function pinta(i){
+  if(i===cur)return; cur=i;
+  document.querySelectorAll(".l").forEach((e,k)=>{e.classList.toggle("act",k===i);e.classList.toggle("pasada",k<i)});
+  const e=$("escena");
+  if(i<0){e.className="escena idle";$("rol").textContent="PRESIONA ▶ PARA EMPEZAR";$("frase").textContent="MARTIN, buenos días";$("sig").textContent="";return;}
+  const a=L[i][0]=="a";
+  e.className="escena "+(a?"asesor":"todos");
+  $("rol").textContent=a?"🎤 EL ASESOR DA LA VOZ":"👥 TODOS REPITEN";
+  $("frase").textContent=L[i][1];
+  $("sig").textContent=L[i+1]?"Sigue: "+L[i+1][1]:"¡Fin del himno! 👏";
+  const el=$("l"+i); if(el)el.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+function indice(t){let r=-1;for(let i=0;i<T.length;i++){if(T[i]<=t)r=i;else break;}return r;}
+function tick(){
+  if(au.duration)$("prog").style.width=(au.currentTime/au.duration*100)+"%";
+  if(!cal&&T.length===L.length)pinta(indice(au.currentTime));
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+au.addEventListener("ended",()=>{ if(!cal)pinta(L.length-1); });
+
+document.querySelectorAll(".vel").forEach(b=>b.onclick=()=>{
+  au.playbackRate=+b.dataset.v;
+  document.querySelectorAll(".vel").forEach(x=>x.classList.toggle("on",x===b));
+});
+
+// Acceso con clave
+let desbloqueado=false;
+$("btnCal").onclick=()=>{
+  if(desbloqueado){abrirCal();}
+  else{$("gate").classList.toggle("show");$("clave").focus();}
+};
+$("ojo").onclick=()=>{const c=$("clave");const ver=c.type==="password";c.type=ver?"text":"password";$("ojo").textContent=ver?"🙈":"👁";};
+function entrar(){
+  if($("clave").value===CLAVE){desbloqueado=true;$("gate").classList.remove("show");abrirCal();$("err").textContent="";$("clave").value="";}
+  else $("err").textContent="Clave incorrecta";
+}
+$("entrar").onclick=entrar;
+$("clave").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
+
+// Calibración
+function estado(){
+  $("cEstado").textContent=marks.length<L.length?`Marca la línea ${marks.length+1} de ${L.length}: "${L[marks.length][1]}"`:"¡Listo! Copia los tiempos de abajo.";
+  $("cOut").value=marks.length?"const TIEMPOS = ["+marks.map(m=>m.toFixed(2)).join(", ")+"];":"";
+}
+function abrirCal(){$("calib").classList.add("show");$("cOk").textContent="";marks=[];estado();}
+function cerrarCal(){
+  $("calib").classList.remove("show");cal=false;marks=[];au.pause();
+  cur=-2;pinta(-1);
+}
+$("cX").onclick=cerrarCal;
+$("cGuardar").onclick=()=>{
+  if(marks.length!==L.length){$("cOk").style.color="#d32f2f";$("cOk").textContent="Faltan líneas por marcar ("+marks.length+" de "+L.length+").";return;}
+  T=marks.slice();
+  try{localStorage.setItem("martin_t",JSON.stringify(T));}catch(e){}
+  $("cOk").style.color="";$("cOk").textContent="✅ Tiempos guardados. Copia el texto de arriba para dejarlo fijo en el archivo.";
+  cal=false;au.pause();
+};
+$("cIni").onclick=()=>{cal=true;marks=[];$("cOk").textContent="";au.currentTime=0;au.play();pinta(-1);estado();};
+function marca(){
+  if(!cal||marks.length>=L.length)return;
+  marks.push(au.currentTime); pinta(marks.length-1); estado();
+  if(marks.length===L.length){au.pause();}
+}
+$("cMarca").onclick=marca;
+$("cUndo").onclick=()=>{if(marks.length){marks.pop();cal=true;pinta(marks.length-1);estado();}};
+document.addEventListener("keydown",e=>{
+  if(cal&&e.code==="Space"&&document.activeElement.tagName!=="INPUT"){e.preventDefault();marca();}
+});
+</script>
+</body>
+</html>
